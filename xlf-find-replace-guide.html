@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to use — Rise 360 XLF Find &amp; Replace</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff;--bg2:#f5f4f0;--bg3:#eceae4;
+  --bg-info:#e6f1fb;--bg-success:#eaf3de;--bg-warning:#faeeda;--bg-tip:#f0edfb;
+  --text:#1a1a18;--text2:#5f5e5a;--text3:#888780;
+  --text-info:#185fa5;--text-success:#3b6d11;--text-warning:#854f0b;--text-tip:#3c3489;
+  --border:rgba(0,0,0,0.10);--border2:rgba(0,0,0,0.18);
+  --border-info:rgba(24,95,165,0.25);--border-success:rgba(59,109,17,0.25);
+  --border-tip:rgba(60,52,137,0.25);
+  --accent:#185fa5;--r:10px;--rs:7px;--mono:'Courier New',monospace
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1e1e1c;--bg2:#272725;--bg3:#313130;
+  --bg-info:#0c2a45;--bg-success:#172b08;--bg-warning:#2a1a04;--bg-tip:#1e1a3a;
+  --text:#e8e6df;--text2:#a8a69f;--text3:#6e6d68;
+  --text-info:#85b7eb;--text-success:#97c459;--text-warning:#ef9f27;--text-tip:#afa9ec;
+  --border:rgba(255,255,255,0.09);--border2:rgba(255,255,255,0.16);
+  --border-info:rgba(133,183,235,0.22);--border-success:rgba(151,196,89,0.22);
+  --border-tip:rgba(175,169,236,0.22);
+}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.65;color:var(--text);background:var(--bg);padding:2.5rem 1rem 5rem;display:flex;justify-content:center}
+.wrap{width:100%;max-width:660px}
+
+/* Header */
+.guide-header{margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--border)}
+.guide-header h1{font-size:24px;font-weight:500;letter-spacing:-.4px;margin-bottom:.4rem}
+.guide-header .intro{font-size:14px;color:var(--text2);line-height:1.7;max-width:520px}
+.tool-link{display:inline-flex;align-items:center;gap:6px;margin-top:1rem;font-size:13px;font-weight:500;color:var(--text-info);text-decoration:none;padding:7px 12px;border:.5px solid var(--border-info);border-radius:var(--rs);background:var(--bg-info);transition:opacity .15s}
+.tool-link:hover{opacity:.8}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:1.25rem;padding:1.5rem 0;border-bottom:.5px solid var(--border)}
+.step:last-of-type{border-bottom:none}
+.step-num{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--bg2);border:.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text2);margin-top:2px}
+.step-body{flex:1;min-width:0}
+.step-body h2{font-size:16px;font-weight:500;margin-bottom:.4rem}
+.step-body p{font-size:14px;color:var(--text2);margin-bottom:.75rem;line-height:1.65}
+.step-body p:last-child{margin-bottom:0}
+
+/* Screen mockups */
+.mockup{background:var(--bg2);border:.5px solid var(--border2);border-radius:var(--r);padding:1rem 1.25rem;margin:.75rem 0;font-size:13px}
+.mockup-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border)}
+.mockup-row:last-child{border-bottom:none}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;white-space:nowrap}
+.pill-success{background:var(--bg-success);color:var(--text-success);border:.5px solid var(--border-success)}
+.pill-info{background:var(--bg-info);color:var(--text-info);border:.5px solid var(--border-info)}
+.pill-warn{background:var(--bg-warning);color:var(--text-warning);border:.5px solid rgba(133,79,11,.25)}
+.pill-tip{background:var(--bg-tip);color:var(--text-tip);border:.5px solid var(--border-tip)}
+.pill-grey{background:var(--bg2);color:var(--text2);border:.5px solid var(--border)}
+.mono{font-family:var(--mono);font-size:12px}
+.red{color:#a32d2d}.grn{color:#3b6d11}.muted{color:var(--text3)}
+
+/* Callout boxes */
+.callout{border-radius:var(--rs);padding:.875rem 1rem;margin:.75rem 0;font-size:13px;line-height:1.6}
+.callout p{margin-bottom:.4rem}.callout p:last-child{margin-bottom:0}
+.callout strong{font-weight:500}
+.callout.tip{background:var(--bg-tip);color:var(--text-tip);border:.5px solid var(--border-tip)}
+.callout.info{background:var(--bg-info);color:var(--text-info);border:.5px solid var(--border-info)}
+.callout.success{background:var(--bg-success);color:var(--text-success);border:.5px solid var(--border-success)}
+.callout.warn{background:var(--bg-warning);color:var(--text-warning);border:.5px solid rgba(133,79,11,.25)}
+code{font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px}
+
+/* Use case examples */
+.use-cases{margin-top:2rem;padding-top:1.5rem;border-top:.5px solid var(--border)}
+.use-cases h2{font-size:16px;font-weight:500;margin-bottom:1rem}
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.uc{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:.875rem 1rem}
+.uc .uc-title{font-size:13px;font-weight:500;margin-bottom:.35rem}
+.uc .uc-desc{font-size:12px;color:var(--text2);line-height:1.55}
+.uc .uc-ex{font-family:var(--mono);font-size:11px;margin-top:.5rem;color:var(--text3)}
+.uc .uc-ex .r{color:#3b6d11}.uc .uc-ex .f{color:#a32d2d}
+
+/* FAQ */
+.faq{margin-top:2rem;padding-top:1.5rem;border-top:.5px solid var(--border)}
+.faq h2{font-size:16px;font-weight:500;margin-bottom:1rem}
+.faq-item{margin-bottom:1.1rem}
+.faq-q{font-size:14px;font-weight:500;margin-bottom:.25rem}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.65}
+
+footer{margin-top:3rem;padding-top:1.25rem;border-top:.5px solid var(--border);font-size:12px;color:var(--text3);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="guide-header">
+  <h1>How to use: Rise 360 XLF Find &amp; Replace</h1>
+  <p class="intro">A step-by-step guide to using the tool to make bulk text changes to a Rise 360 course — including fixing American English spellings — without editing the course directly.</p>
+  <a class="tool-link" href="https://manicmig.github.io/xlf-find-replace">&#8594; Open the tool</a>
+</div>
+
+<!-- Background -->
+<div class="callout info" style="margin-bottom:1.5rem">
+  <p><strong>Why this tool exists:</strong> Rise 360 has no native find &amp; replace. This tool uses Rise's translation file export (.xlf format) as a workaround — you export the file, run your changes here, then reimport. Rise applies the updated text to your course on reimport.</p>
+</div>
+
+<div class="steps">
+
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h2>Export your .xlf file from Rise 360</h2>
+      <p>In Rise 360, open your course and go to <strong>Settings → Labels</strong>. From the label set dropdown, select <strong>Export to XLIFF</strong>. This downloads a <code>.xlf</code> file containing all the text content in your course.</p>
+      <div class="callout tip">
+        <p><strong>Tip:</strong> Keep the original .xlf somewhere safe before you start. If anything looks wrong after reimport, you still have the unmodified version.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h2>Upload the file to the tool</h2>
+      <p>Open the tool and drag your .xlf file onto the upload zone, or click to browse. Once loaded you'll see a file bar showing the filename and size — and all your rules will immediately show live match counts against the file content.</p>
+      <div class="mockup">
+        <div class="mockup-row">
+          <span style="font-size:13px;font-weight:500;flex:1">My-course.xlf</span>
+          <span style="font-size:12px;color:var(--text2)">380 KB</span>
+          <span style="font-size:12px;color:var(--text-info);margin-left:8px">Change file</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h2>Build your replacement rules</h2>
+      <p>You have two ways to add rules — use one or both together.</p>
+
+      <p><strong>Option A — British English preset.</strong> Click the green preset button to add 100+ American→British spelling rules in one go (organize→organise, color→colour, behavior→behaviour, etc.). Click again to remove it.</p>
+
+      <div class="mockup">
+        <div class="mockup-row" style="background:var(--bg-success);border-radius:6px;padding:8px 10px;border:.5px solid var(--border-success)">
+          <span style="font-size:13px;font-weight:500;color:var(--text-success);flex:1">&#127468;&#127463; British English spelling preset <span class="pill pill-success" style="margin-left:4px">100+ rules</span></span>
+          <span style="font-size:12px;color:var(--text-success)">✓ Active — click to remove</span>
+        </div>
+      </div>
+
+      <p style="margin-top:.75rem"><strong>Option B — Add your own rules.</strong> Type your find and replace terms in the form and click <strong>+ Add</strong> (or press Enter). Each rule appears in the list below with a live match count.</p>
+
+      <div class="mockup">
+        <div class="mockup-row">
+          <span class="mono red" style="flex:1">RCM Activist</span>
+          <span class="muted" style="font-size:11px">→</span>
+          <span class="mono grn" style="flex:1">RCM Representative</span>
+          <span class="pill pill-info" style="font-size:10px">14 matches</span>
+        </div>
+        <div class="mockup-row">
+          <span class="mono red" style="flex:1">disciplinary hearing</span>
+          <span class="muted" style="font-size:11px">→</span>
+          <span class="mono grn" style="flex:1">formal hearing</span>
+          <span class="pill pill-info" style="font-size:10px">7 matches</span>
+        </div>
+        <div class="mockup-row">
+          <span class="mono red" style="flex:1">2024</span>
+          <span class="muted" style="font-size:11px">→</span>
+          <span class="mono grn" style="flex:1">2025</span>
+          <span class="pill pill-grey" style="font-size:10px">0 matches</span>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <p><strong>Match count badges:</strong> Blue = matches found in this file. Grey = no matches. A grey badge before you've uploaded a file just means the file hasn't been checked yet.</p>
+      </div>
+
+      <p><strong>Case sensitive toggle</strong> — by default rules are case-insensitive. Turn on <strong>Aa</strong> if you need to match exact capitalisation only (e.g. replacing <code>NHS</code> but not <code>nhs</code>).</p>
+
+      <p><strong>Regex toggle</strong> — for advanced users. Enables JavaScript regular expressions for pattern-based matching. Leave off unless you need it.</p>
+
+      <div class="callout warn">
+        <p><strong>Leaving "Replace with" empty</strong> will delete the matched text entirely. Useful but double-check the match count before applying.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h2>Apply and download</h2>
+      <p>Once you have a file loaded and at least one rule, the <strong>Apply replacements &amp; download</strong> button activates. Click it to process the file.</p>
+      <p>You'll see a results summary showing how many replacements were made per rule, and how many <code>&lt;target&gt;</code> tags were added. Then click the download button to save your corrected file.</p>
+
+      <div class="mockup">
+        <div class="mockup-row">
+          <span style="font-size:12px;color:var(--text2);flex:1">Rules applied</span>
+          <span style="font-size:16px;font-weight:500">3</span>
+        </div>
+        <div class="mockup-row">
+          <span style="font-size:12px;color:var(--text2);flex:1">Total replacements</span>
+          <span style="font-size:16px;font-weight:500">68</span>
+        </div>
+        <div class="mockup-row" style="background:var(--bg-success);border-radius:4px;padding:6px 8px;border:.5px solid var(--border-success)">
+          <span style="font-size:12px;color:var(--text-success);flex:1">Target tags added</span>
+          <span style="font-size:16px;font-weight:500;color:var(--text-success)">142</span>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <p><strong>About "Target tags added":</strong> Rise 360 requires a <code>&lt;target&gt;</code> tag in each entry for an import to take effect. The tool adds these automatically — without them, Rise silently ignores the file and reverts everything to English defaults. This is a known Rise 360 behaviour confirmed by Articulate support.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h2>Reimport the file into Rise 360</h2>
+      <p>Back in Rise 360, go to <strong>Settings → Labels</strong>, open your label set, and select <strong>Import from XLIFF</strong>. Choose the <code>_modified.xlf</code> file you just downloaded.</p>
+      <p>Preview or publish your course to see the changes applied. Rise only shows updated labels in preview/published mode — the editor view may still show the original text.</p>
+      <div class="callout info">
+        <p><strong>Nothing changed?</strong> The most common cause is missing <code>&lt;target&gt;</code> tags — but this tool adds them automatically, so it shouldn't happen. If it does, check you're importing the <code>_modified.xlf</code> file and not the original.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Use cases -->
+<div class="use-cases">
+  <h2>What else can you use this for?</h2>
+  <div class="uc-grid">
+    <div class="uc">
+      <div class="uc-title">Fix a recurring typo</div>
+      <div class="uc-desc">Replace a misspelling that appears throughout the course in one go.</div>
+      <div class="uc-ex"><span class="f">managment</span> → <span class="r">management</span></div>
+    </div>
+    <div class="uc">
+      <div class="uc-title">Update a job title</div>
+      <div class="uc-desc">A role has been renamed and it appears on every slide.</div>
+      <div class="uc-ex"><span class="f">HR Advisor</span> → <span class="r">People Partner</span></div>
+    </div>
+    <div class="uc">
+      <div class="uc-title">Refresh a year</div>
+      <div class="uc-desc">Update date references when reusing a course year on year.</div>
+      <div class="uc-ex"><span class="f">2023</span> → <span class="r">2025</span></div>
+    </div>
+    <div class="uc">
+      <div class="uc-title">Rename a product or policy</div>
+      <div class="uc-desc">An internal policy or tool name has changed organisation-wide.</div>
+      <div class="uc-ex"><span class="f">ESR</span> → <span class="r">NHS Jobs</span></div>
+    </div>
+    <div class="uc">
+      <div class="uc-title">Update organisation name</div>
+      <div class="uc-desc">A merger, rebrand or restructure means the name has changed.</div>
+      <div class="uc-ex"><span class="f">Health Education England</span> → <span class="r">NHS England</span></div>
+    </div>
+    <div class="uc">
+      <div class="uc-title">Localise for a new audience</div>
+      <div class="uc-desc">Adapt a course for a different team, region, or organisation.</div>
+      <div class="uc-ex"><span class="f">midwife</span> → <span class="r">nurse</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <h2>Common questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">Does this affect the Rise 360 course structure or interactions?</div>
+    <div class="faq-a">No. The tool only modifies text content inside <code>&lt;source&gt;</code> and <code>&lt;target&gt;</code> tags. XML structure, IDs, and attributes are untouched. Buttons, interactions, and layout are unaffected.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Is my file uploaded anywhere?</div>
+    <div class="faq-a">No. Everything runs locally in your browser. Your file is never sent to a server and no data is stored anywhere.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I run multiple find/replace rules at once?</div>
+    <div class="faq-a">Yes — build up your list and all rules are applied in sequence when you click Apply. You can combine the British English preset with your own custom rules in the same pass.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What if a rule shows 0 matches?</div>
+    <div class="faq-a">It means that exact text wasn't found in the file. Check spelling, try toggling case sensitivity, or check whether the text actually exists in the course. Rules with 0 matches are harmless — they just won't change anything.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">The practice/practise distinction isn't handled by the preset — why?</div>
+    <div class="faq-a">In British English, <em>practice</em> is the noun and <em>practise</em> is the verb. Correcting this automatically would require understanding sentence context, which a find/replace tool can't reliably do. You can add your own targeted rules if you're confident about specific instances in your course.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I use this for any Rise 360 course?</div>
+    <div class="faq-a">Yes — any course that has content exported to .xlf format will work. The tool is not specific to the RCM; it was built there but works with any Rise 360 export.</div>
+  </div>
+</div>
+
+<footer>
+  Built for the RCM eLearning team. Open the tool at <a href="https://manicmig.github.io/xlf-find-replace" style="color:var(--text2)">manicmig.github.io/xlf-find-replace</a>.
+</footer>
+
+</div>
+</body>
+</html>
